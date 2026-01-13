@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "./components/ui/button";
+import Navbar from "./components/Navigation/Navbar";
 
 const App = () => {
   return (
-    <div className="text-5xl text-red-500">
-      App
-      <Button>Button</Button>
+    <div className="max-md:px-4 ">
+      <Navbar />
     </div>
   );
 };
