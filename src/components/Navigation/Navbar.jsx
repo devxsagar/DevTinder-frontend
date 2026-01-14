@@ -9,8 +9,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Navbar = () => {
   return (
-    <nav className="w-full">
-      <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between border mt-4 rounded-4xl">
+    <nav className="w-full text-foreground">
+      <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between border border-border mt-4 rounded-4xl">
         {/* Logo */}
         <div className="text-lg md:text-xl font-bold cursor-pointer">DevTinder</div>
 

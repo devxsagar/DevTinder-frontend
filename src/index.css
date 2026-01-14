@@ -1,15 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-body,
-html {
+body {
   font-family: "DM Sans", sans-serif;
-  /* background-color: #020817; */
+  background-color: var(--background);
 }
 
 @custom-variant dark (&:is(.dark *));
 
-
+@theme {
+  --color-primary: #f7f8f8;
+  --color-card: #131415;
+  --color-green: #519e46;
+  --color-bg-white: #ffffff;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
