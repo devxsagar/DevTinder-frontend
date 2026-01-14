@@ -6,6 +6,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { IconLogout, IconUserFilled } from "@tabler/icons-react";
 
 const Navbar = () => {
   return (
@@ -23,11 +24,13 @@ const Navbar = () => {
             </Avatar>
           </DropdownMenuTrigger>
 
-          <DropdownMenuContent align="start" className="w-40">
+          <DropdownMenuContent align="end" className="w-20">
             <DropdownMenuItem className="cursor-pointer">
+              <IconUserFilled />
               Profile
             </DropdownMenuItem>
             <DropdownMenuItem className="cursor-pointer text-red-600">
+              <IconLogout />
               Logout
             </DropdownMenuItem>
           </DropdownMenuContent>

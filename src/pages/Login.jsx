@@ -1,28 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { EyeOff } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const [email, setEmail] = useState("asta@gmail.com");
+  const [password, setPassword] = useState("Asta@123");
+
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res = await axios.post(
+        "http://localhost:3000/login",
+        {
+          email,
+          password,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data || res.response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <div className="w-full max-w-md rounded-2xl border bg-card p-6 shadow-sm">
         <h1 className="mb-6 text-2xl font-semibold text-center">Log in</h1>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Email */}
           <div className="space-y-1">
             <Label htmlFor="email">Email</Label>
             <Input
               id="email"
-              type="text"
-              placeholder="Enter your email or username"
+              type="email"
+              value={email}
+              placeholder="Enter your email"
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -37,7 +63,9 @@ const Login = () => {
             <Input
               id="password"
               type="password"
+              value={password}
               placeholder="Enter your password"
+              onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
@@ -67,7 +95,10 @@ const Login = () => {
           <p className="underline cursor-pointer">Forget your password</p>
           <p>
             Don’t have an account?{" "}
-            <span className="font-medium underline cursor-pointer" onClick={() => navigate("/signup")} >
+            <span
+              className="font-medium underline cursor-pointer"
+              onClick={() => navigate("/signup")}
+            >
               Sign up
             </span>
           </p>

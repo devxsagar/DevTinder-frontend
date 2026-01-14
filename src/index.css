@@ -9,10 +9,7 @@ body {
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-primary: #f7f8f8;
-  --color-card: #131415;
-  --color-green: #519e46;
-  --color-bg-white: #ffffff;
+  --color-green: #87da1c;
 }
 
 @theme inline {
