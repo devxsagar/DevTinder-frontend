@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import {
   DropdownMenu,
@@ -9,11 +10,31 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IconLogout, IconUserFilled } from "@tabler/icons-react";
+import { BASE_URL } from "@/utils/constants";
+import { removeUser } from "@/feature/userSlice";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      await axios.post(
+        BASE_URL + "/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+
+      dispatch(removeUser());
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <nav className="w-full text-foreground">
@@ -41,7 +62,10 @@ const Navbar = () => {
                 <IconUserFilled />
                 Profile
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer text-red-600">
+              <DropdownMenuItem
+                className="cursor-pointer text-red-600"
+                onClick={handleLogout}
+              >
                 <IconLogout />
                 Logout
               </DropdownMenuItem>

@@ -15,6 +15,7 @@ import { BASE_URL } from "@/utils/constants";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errMessage, setErrMessage] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,7 +41,8 @@ const Login = () => {
       navigate("/");
     } catch (error) {
       const message = error.response.data.message || "Something went wrong";
-      toast.error(message);
+      // toast.error(message);
+      setErrMessage(message);
     }
   };
 
@@ -93,6 +95,8 @@ const Login = () => {
             <span className="underline cursor-pointer">Terms of use</span> and{" "}
             <span className="underline cursor-pointer">Privacy Policy</span>.
           </p>
+
+          {errMessage && <p className="text-sm text-red-400 text-center">Error: {errMessage}</p>}
 
           {/* Button */}
           <Button className="w-full rounded-full" size="lg" type="submit">

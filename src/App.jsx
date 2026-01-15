@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
@@ -7,17 +7,22 @@ import Navbar from "./components/Navigation/Navbar";
 import Footer from "./components/Navigation/Footer";
 import { toast, Toaster } from "sonner";
 import { BASE_URL } from "./utils/constants";
-import { addUser } from "./feature/userSlice";
+import { addUser, removeUser } from "./feature/userSlice";
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const userData = useSelector((state) => state.user);
 
   const fetchUser = async () => {
     try {
       if (userData) return;
+
+      if (location.pathname !== "/") {
+        return;
+      }
 
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials: true,
@@ -27,13 +32,9 @@ const App = () => {
         dispatch(addUser(res.data.user));
       }
     } catch (err) {
-      if (err.status === 401) {
+      if (err.response?.status === 401) {
+        dispatch(removeUser());
         navigate("/login");
-
-        toast.info("Session expired", {
-          description: "Please log in again to continue",
-          duration: 3000,
-        });
       }
     }
   };
@@ -43,7 +44,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className="max-md:px-4 z-100 ">
+    <div className="max-xl:px-4 z-100 ">
       <Navbar />
       <Outlet />
       <Footer />
