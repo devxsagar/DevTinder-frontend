@@ -1,24 +1,27 @@
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { IconLogout, IconUserFilled } from "@tabler/icons-react";
-import { useSelector } from "react-redux";
 
 const Navbar = () => {
-  const user = useSelector((store) => store.user);
+  const user = useSelector((state) => state.user);
+
+  const navigate = useNavigate();
 
   return (
     <nav className="w-full text-foreground">
       <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between border border-border mt-4 rounded-4xl">
         {/* Logo */}
-        <div className="text-lg md:text-xl font-bold cursor-pointer">
+        <Link to="/" className="text-lg md:text-xl font-bold cursor-pointer">
           DevTinder
-        </div>
+        </Link>
 
         {/* User Dropdown */}
         {user && (
@@ -31,7 +34,10 @@ const Navbar = () => {
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end" className="w-20">
-              <DropdownMenuItem className="cursor-pointer">
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => navigate("/profile")}
+              >
                 <IconUserFilled />
                 Profile
               </DropdownMenuItem>
