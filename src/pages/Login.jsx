@@ -1,25 +1,30 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { EyeOff } from "lucide-react";
+import { toast } from "sonner";
+import { addUser } from "@/feature/userSlice";
+import { BASE_URL } from "@/utils/constants";
 
 const Login = () => {
-  const [email, setEmail] = useState("asta@gmail.com");
-  const [password, setPassword] = useState("Asta@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/login",
+        BASE_URL + "/login",
         {
           email,
           password,
@@ -28,9 +33,14 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      console.log(res.data || res.response.data);
+      dispatch(addUser(res.data.user));
+      toast.success(res.data.message, {
+        description: `Welcome back ${res.data.user.firstName}!`,
+      });
+      navigate("/");
     } catch (error) {
-      console.error(error);
+      const message = error.response.data.message || "Something went wrong";
+      toast.error(message);
     }
   };
 
