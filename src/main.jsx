@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import appStore from "./store/appStore";
 import Profile from "./pages/Profile";
+import ProfileEditForm from "./components/profile/ProfileEditForm";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "profile/edit",
+        element: <ProfileEditForm />
       }
     ],
   },

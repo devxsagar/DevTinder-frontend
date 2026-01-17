@@ -38,7 +38,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full text-foreground">
-      <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between border border-border mt-4 rounded-4xl">
+      <div className="mx-auto max-w-3xl px-6 py-3 bg-background flex items-center justify-between border border-border mt-4 rounded-4xl">
         {/* Logo */}
         <Link to="/" className="text-lg md:text-xl font-bold cursor-pointer">
           DevTinder
