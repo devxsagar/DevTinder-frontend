@@ -52,7 +52,7 @@ const Navbar = () => {
 
         {/* User Dropdown */}
         {user && (
-          <DropdownMenu>
+          <DropdownMenu >
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer">
                 <AvatarImage
@@ -64,7 +64,7 @@ const Navbar = () => {
               </Avatar>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-20">
+            <DropdownMenuContent align="end" className="w-20 bg-popover">
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => navigate("/profile")}
@@ -83,7 +83,7 @@ const Navbar = () => {
 
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate("/requests")}
               >
                 <IconUserPlus />
                 Requests

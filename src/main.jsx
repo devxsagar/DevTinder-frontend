@@ -12,6 +12,7 @@ import appStore from "./store/appStore";
 import Profile from "./pages/Profile";
 import ProfileEditForm from "./components/profile/ProfileEditForm";
 import Connections from "./pages/Connections";
+import Requests from "./pages/Requests";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
         path: "connections",
         element: <Connections />,
       },
+      {
+        path: "requests",
+        element: <Requests />,
+      }
     ],
   },
 ]);

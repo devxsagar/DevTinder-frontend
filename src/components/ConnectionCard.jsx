@@ -38,28 +38,28 @@ const ConnectionCard = ({ user }) => {
         {/* Avatar */}
         <div className="flex items-center gap-4">
           <img
-            src={user.photoUrl}
-            alt={user.firstName}
+            src={user?.photoUrl}
+            alt={user?.firstName}
             className="h-16 w-16 rounded-full object-cover"
           />
           <div>
             <h2 className="text-lg font-semibold text-card-foreground">
-              {`${user.firstName} ${user.lastName || ""}`}
+              {`${user?.firstName} ${user?.lastName || ""}`}
             </h2>
-            <p className="text-sm text-muted-foreground">{user.role}</p>
+            <p className="text-sm text-muted-foreground">{user?.role}</p>
           </div>
         </div>
 
         {/* About */}
-        <p className="mt-4 text-sm text-muted-foreground">{user.aboutMe}</p>
+        <p className="mt-4 text-sm text-muted-foreground">{user?.aboutMe}</p>
 
         {/* Skills */}
         <div className="mt-4 flex flex-wrap gap-2">
-          {user.skills.map((skill, index) => (
+          {user?.skills?.map((skill, index) => (
             <Badge
               key={skill}
               variant="secondary"
-              className={`rounded-full ${skillColors[index % skillColors.length]}`}
+              className={`rounded-full ${skillColors[index % skillColors?.length]}`}
             >
               {skill}
             </Badge>
@@ -69,7 +69,7 @@ const ConnectionCard = ({ user }) => {
         {/* Location */}
         <div className="mt-4 text-sm font-medium text-primary flex items-center gap-1.5">
           <MapPin className="w-4 h-4" />
-          {user.location}
+          {user?.location}
         </div>
       </CardContent>
     </Card>
