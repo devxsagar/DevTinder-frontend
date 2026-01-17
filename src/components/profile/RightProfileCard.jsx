@@ -49,7 +49,7 @@ const RightProfileCard = ({ user }) => {
               Date of Birth
             </p>
             <p className="mt-1 text-sm font-medium text-primary">
-              {user.dateOfBirth.split("T")[0] || "-"}
+              {user?.dateOfBirth?.split("T")[0] || "-"}
             </p>
           </div>
 

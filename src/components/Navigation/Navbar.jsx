@@ -9,8 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { IconLogout, IconUserFilled } from "@tabler/icons-react";
-import { BASE_URL } from "@/utils/constants";
+import {
+  IconLogout,
+  IconUser,
+  IconUserCheck,
+  IconUserFilled,
+  IconUserPlus,
+} from "@tabler/icons-react";
+import { BASE_URL, DEFAULT_PHOTO_URL } from "@/utils/constants";
 import { removeUser } from "@/feature/userSlice";
 
 const Navbar = () => {
@@ -26,7 +32,7 @@ const Navbar = () => {
         {},
         {
           withCredentials: true,
-        }
+        },
       );
 
       dispatch(removeUser());
@@ -49,7 +55,11 @@ const Navbar = () => {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer">
-                <AvatarImage src={user.photoUrl} alt="user" />
+                <AvatarImage
+                  className="object-cover"
+                  src={user.photoUrl || DEFAULT_PHOTO_URL}
+                  alt="user"
+                />
                 <AvatarFallback>{user.firstName.split("")[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
@@ -59,9 +69,26 @@ const Navbar = () => {
                 className="cursor-pointer"
                 onClick={() => navigate("/profile")}
               >
-                <IconUserFilled />
+                <IconUser />
                 Profile
               </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => navigate("/connections")}
+              >
+                <IconUserCheck />
+                Connections
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => navigate("/profile")}
+              >
+                <IconUserPlus />
+                Requests
+              </DropdownMenuItem>
+
               <DropdownMenuItem
                 className="cursor-pointer text-red-600"
                 onClick={handleLogout}

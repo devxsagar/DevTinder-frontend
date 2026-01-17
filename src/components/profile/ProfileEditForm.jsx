@@ -30,6 +30,7 @@ const ProfileEditForm = () => {
     dateOfBirth: "",
     aboutMe: "",
     location: "",
+    photoUrl: ""
   });
 
   const userData = useSelector((state) => state.user);
@@ -96,9 +97,9 @@ const ProfileEditForm = () => {
         dispatch(addUser(res?.data?.user));
         toast.success(res.data.message, {
           style: {
-            background: "#2dc653", 
+            background: "#2dc653",
             color: "#fff",
-          }
+          },
         });
         navigate("/profile");
       }
@@ -107,7 +108,9 @@ const ProfileEditForm = () => {
       const errMessage = Array.isArray(message)
         ? message[0]
         : message || "Something went wrong";
-      toast.error(errMessage, { style: { background: "#ef233c", color: "#fff" } });
+      toast.error(errMessage, {
+        style: { background: "#ef233c", color: "#fff" },
+      });
     }
   };
 
@@ -122,6 +125,7 @@ const ProfileEditForm = () => {
         dateOfBirth: userData.dateOfBirth || "",
         aboutMe: userData.aboutMe || "",
         location: userData.location || "",
+        photoUrl: userData.photoUrl || ""
       });
 
       setSkills(userData.skills || []);
@@ -240,6 +244,17 @@ const ProfileEditForm = () => {
                   onChange={handleChange}
                 />
               </div>
+            </div>
+
+            <div className="space-y-1">
+              <Label htmlFor="photoUrl">About</Label>
+              <Textarea
+                id="photoUrl"
+                name="photoUrl"
+                type="text"
+                value={formData.photoUrl}
+                onChange={handleChange}
+              />
             </div>
 
             {/* About Me */}

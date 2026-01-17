@@ -1,5 +1,6 @@
 import React from "react";
 import SocialLinks from "./SocialLinks";
+import { DEFAULT_PHOTO_URL } from "@/utils/constants";
 
 const LeftProfileCard = ({ user }) => {
   return (
@@ -10,7 +11,10 @@ const LeftProfileCard = ({ user }) => {
           <div className="relative">
             <div className="h-40 w-40 rounded-full bg-secondary p-2">
               <img
-                src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+                src={
+                  user.photoUrl ||
+                  DEFAULT_PHOTO_URL
+                }
                 alt="profile"
                 loading="lazy"
                 className="h-full w-full rounded-full object-cover"

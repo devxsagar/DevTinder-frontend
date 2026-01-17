@@ -1,7 +1,6 @@
 import React from "react";
 
 const UserCard = ({ user }) => {
-  // const skills = ["React", "Tailwind", "JavaScript", "UI Design", "Figma"];
 
   const skillColors = [
     "bg-indigo-100 text-indigo-700",
@@ -11,14 +10,14 @@ const UserCard = ({ user }) => {
     "bg-sky-100 text-sky-700",
   ];
 
-  const { firstName, lastName, age, gender, role, skills, aboutMe, location } = user;
+  const { firstName, lastName, age, photoUrl, gender, role, skills, aboutMe, location } = user;
 
   return (
     <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-gray-200 bg-white">
       {/* Hero Image */}
       <div className="relative h-56">
         <img
-          src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1"
+          src={photoUrl}
           alt="profile"
           className="h-full w-full object-cover"
         />
@@ -28,7 +27,7 @@ const UserCard = ({ user }) => {
 
         {/* Name & Role */}
         <div className="absolute bottom-4 left-4">
-          <h2 className="text-lg font-semibold text-white">{`${firstName} ${lastName}`}</h2>
+          <h2 className="text-lg font-semibold text-white">{`${firstName} ${lastName || ""}`}</h2>
           <p className="text-sm text-gray-200">{role}</p>
         </div>
       </div>

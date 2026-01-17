@@ -11,6 +11,7 @@ import Feed from "./pages/Feed";
 import appStore from "./store/appStore";
 import Profile from "./pages/Profile";
 import ProfileEditForm from "./components/profile/ProfileEditForm";
+import Connections from "./pages/Connections";
 
 const router = createBrowserRouter([
   {
@@ -35,8 +36,12 @@ const router = createBrowserRouter([
       },
       {
         path: "profile/edit",
-        element: <ProfileEditForm />
-      }
+        element: <ProfileEditForm />,
+      },
+      {
+        path: "connections",
+        element: <Connections />,
+      },
     ],
   },
 ]);
@@ -46,5 +51,5 @@ createRoot(document.getElementById("root")).render(
     <Provider store={appStore}>
       <RouterProvider router={router} />
     </Provider>
-  </StrictMode>
+  </StrictMode>,
 );
