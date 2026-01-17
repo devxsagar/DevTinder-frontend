@@ -9,8 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { IconLogout, IconUserFilled } from "@tabler/icons-react";
-import { BASE_URL } from "@/utils/constants";
+import {
+  IconLogout,
+  IconUser,
+  IconUserCheck,
+  IconUserFilled,
+  IconUserPlus,
+} from "@tabler/icons-react";
+import { BASE_URL, DEFAULT_PHOTO_URL } from "@/utils/constants";
 import { removeUser } from "@/feature/userSlice";
 
 const Navbar = () => {
@@ -26,7 +32,7 @@ const Navbar = () => {
         {},
         {
           withCredentials: true,
-        }
+        },
       );
 
       dispatch(removeUser());
@@ -38,7 +44,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full text-foreground">
-      <div className="mx-auto max-w-3xl px-6 py-3 flex items-center justify-between border border-border mt-4 rounded-4xl">
+      <div className="mx-auto max-w-3xl px-6 py-3 bg-background flex items-center justify-between border border-border mt-4 rounded-4xl">
         {/* Logo */}
         <Link to="/" className="text-lg md:text-xl font-bold cursor-pointer">
           DevTinder
@@ -46,22 +52,43 @@ const Navbar = () => {
 
         {/* User Dropdown */}
         {user && (
-          <DropdownMenu>
+          <DropdownMenu >
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer">
-                <AvatarImage src={user.photoUrl} alt="user" />
+                <AvatarImage
+                  className="object-cover"
+                  src={user.photoUrl || DEFAULT_PHOTO_URL}
+                  alt="user"
+                />
                 <AvatarFallback>{user.firstName.split("")[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
 
-            <DropdownMenuContent align="end" className="w-20">
+            <DropdownMenuContent align="end" className="w-20 bg-popover">
               <DropdownMenuItem
                 className="cursor-pointer"
                 onClick={() => navigate("/profile")}
               >
-                <IconUserFilled />
+                <IconUser />
                 Profile
               </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => navigate("/connections")}
+              >
+                <IconUserCheck />
+                Connections
+              </DropdownMenuItem>
+
+              <DropdownMenuItem
+                className="cursor-pointer"
+                onClick={() => navigate("/requests")}
+              >
+                <IconUserPlus />
+                Requests
+              </DropdownMenuItem>
+
               <DropdownMenuItem
                 className="cursor-pointer text-red-600"
                 onClick={handleLogout}

@@ -20,7 +20,7 @@ const App = () => {
     try {
       if (userData) return;
 
-      if (location.pathname !== "/") {
+      if (location.pathname === "/login" || location.pathname === "/signup") {
         return;
       }
 
