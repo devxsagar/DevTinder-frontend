@@ -1,6 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+
+import { BASE_URL, DEFAULT_PHOTO_URL } from "@/utils/constants";
+import { removeUserFromFeed } from "@/feature/feedSlice";
 
 const UserCard = ({ user }) => {
+  const dispatch = useDispatch();
+
   const skillColors = [
     "bg-indigo-100 text-indigo-700",
     "bg-emerald-100 text-emerald-700",
@@ -10,6 +17,7 @@ const UserCard = ({ user }) => {
   ];
 
   const {
+    _id,
     firstName,
     lastName,
     age,
@@ -21,12 +29,28 @@ const UserCard = ({ user }) => {
     location,
   } = user;
 
+  const handleRequest = async (status, id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + `/request/send/${status}/${id}`,
+        {},
+        { withCredentials: true },
+      );
+
+      if (res.data.success) {
+        dispatch(removeUserFromFeed(id));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-gray-200 bg-white">
       {/* Hero Image */}
       <div className="relative h-56">
         <img
-          src={photoUrl}
+          src={photoUrl || DEFAULT_PHOTO_URL}
           alt="profile"
           className="h-full w-full object-cover"
         />
@@ -79,10 +103,16 @@ const UserCard = ({ user }) => {
 
         {/* Actions */}
         <div className="mt-4 flex gap-3">
-          <button className="flex-1 rounded-lg border border-gray-300 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100">
+          <button
+            className="flex-1 rounded-lg border border-gray-300 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            onClick={() => handleRequest("ignored", _id)}
+          >
             Ignore
           </button>
-          <button className="flex-1 rounded-lg bg-gray-900 py-2 text-sm font-medium text-white hover:bg-gray-800">
+          <button
+            className="flex-1 rounded-lg bg-gray-900 py-2 text-sm font-medium text-white hover:bg-gray-800"
+            onClick={() => handleRequest("interested", _id)}
+          >
             Interested
           </button>
         </div>

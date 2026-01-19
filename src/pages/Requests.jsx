@@ -47,7 +47,6 @@ const Requests = () => {
   }, []);
 
   if (!receivedRequests) return;
-  console.log(receivedRequests);
 
   return (
     <div className="min-h-screen  px-4 py-10">
