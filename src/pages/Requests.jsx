@@ -4,13 +4,29 @@ import axios from "axios";
 
 import { BASE_URL } from "@/utils/constants";
 import { addConnections } from "@/feature/connectionsSlice";
-import { addRequests } from "@/feature/requestsSlice";
+import { addRequests, removeRequest } from "@/feature/requestsSlice";
 import RequestCard from "@/components/RequestCard";
 
 const Requests = () => {
   const receivedRequests = useSelector((state) => state.requests);
 
   const dispatch = useDispatch();
+
+  const handleReviewRequests = async (status, _id) => {
+    try {
+      const res = await axios.post(
+        BASE_URL + `/request/review/${status}/${_id}`,
+        {},
+        { withCredentials: true },
+      );
+
+      if (res.data.success) {
+        dispatch(removeRequest(_id));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const fetchRequests = async () => {
     try {
@@ -31,7 +47,6 @@ const Requests = () => {
   }, []);
 
   if (!receivedRequests) return;
-
   console.log(receivedRequests);
 
   return (
@@ -50,12 +65,31 @@ const Requests = () => {
         {/* Cards Grid */}
         {receivedRequests.length > 0 ? (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {receivedRequests.map((user) => {
-              return <RequestCard key={user._id} user={user.fromUserId} />;
+            {receivedRequests.map((req) => {
+              return (
+                <RequestCard
+                  key={req._id}
+                  user={req.fromUserId}
+                  handleReviewRequests={handleReviewRequests}
+                  requestId={req._id}
+                />
+              );
             })}
           </div>
         ) : (
-          <p className="text-muted-foreground">No connections found</p>
+          <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
+            {/* <img
+              src="/empty-state.svg"
+              alt="No requests"
+              className="mb-4 h-24 opacity-80"
+            /> */}
+            <h3 className="text-sm font-medium text-primary">
+              No connection requests yet
+            </h3>
+            <p className="mt-1 text-xs">
+              When someone sends you a request, it’ll appear here.
+            </p>
+          </div>
         )}
       </div>
     </div>

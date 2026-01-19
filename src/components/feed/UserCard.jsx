@@ -1,7 +1,6 @@
 import React from "react";
 
 const UserCard = ({ user }) => {
-
   const skillColors = [
     "bg-indigo-100 text-indigo-700",
     "bg-emerald-100 text-emerald-700",
@@ -10,7 +9,17 @@ const UserCard = ({ user }) => {
     "bg-sky-100 text-sky-700",
   ];
 
-  const { firstName, lastName, age, photoUrl, gender, role, skills, aboutMe, location } = user;
+  const {
+    firstName,
+    lastName,
+    age,
+    photoUrl,
+    gender,
+    role,
+    skills,
+    aboutMe,
+    location,
+  } = user;
 
   return (
     <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-gray-200 bg-white">
@@ -54,10 +63,18 @@ const UserCard = ({ user }) => {
         {/* Meta Info */}
         <div className="mt-3 flex items-center gap-4 text-xs text-gray-500">
           {age && <span>{age} yrs</span>}
-          <span className={`h-1 w-1 rounded-full bg-gray-400 ${gender && age ? "" : "hidden"}`} />
-          <span>{gender}</span>
-          {location && <span className="h-1 w-1 rounded-full bg-gray-400" />}
-          <span>{location}</span>
+
+          {age && gender && (
+            <span className="h-1 w-1 rounded-full bg-gray-400" />
+          )}
+
+          {gender && <span>{gender}</span>}
+
+          {(age || gender) && location && (
+            <span className="h-1 w-1 rounded-full bg-gray-400" />
+          )}
+
+          {location && <span>{location}</span>}
         </div>
 
         {/* Actions */}
@@ -69,7 +86,7 @@ const UserCard = ({ user }) => {
             Interested
           </button>
         </div>
-      </div>  
+      </div>
     </div>
   );
 };
