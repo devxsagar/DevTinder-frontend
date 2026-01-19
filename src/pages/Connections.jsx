@@ -48,7 +48,7 @@ const Connections = () => {
             })}
           </div>
         ) : (
-          <p className="text-muted-foreground">No connections found</p>
+          <p className="text-muted-foreground text-center text-xl">No connections found</p>
         )}
       </div>
     </div>

@@ -3,10 +3,9 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { MapPin } from "lucide-react";
+import { DEFAULT_PHOTO_URL } from "@/utils/constants";
 
 const ConnectionCard = ({ user }) => {
-  console.log(user);
-
   const skillColors = [
     "bg-indigo-100 text-indigo-700",
     "bg-emerald-100 text-emerald-700",
@@ -15,64 +14,75 @@ const ConnectionCard = ({ user }) => {
     "bg-sky-100 text-sky-700",
   ];
 
+  const {
+    firstName,
+    lastName,
+    age,
+    photoUrl,
+    gender,
+    role,
+    skills,
+    aboutMe,
+    location,
+  } = user;
+
   return (
-    <Card className="relative rounded-2xl border border-border bg-card shadow-sm transition hover:shadow-md">
-      <div
-        className="absolute inset-0 z-0 opacity-50 rounded-2xl"
-        style={{
-          backgroundImage: `
-        linear-gradient(135deg, 
-          rgba(248,250,252,1) 0%, 
-          rgba(219,234,254,0.7) 30%, 
-          rgba(165,180,252,0.5) 60%, 
-          rgba(129,140,248,0.6) 100%
-        ),
-        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.6) 0%, transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(199,210,254,0.4) 0%, transparent 50%),
-        radial-gradient(circle at 40% 80%, rgba(224,231,255,0.3) 0%, transparent 60%)
-      `,
-        }}
-      />
+    <div className="w-full max-w-sm overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      {/* Hero Image */}
+      <div className="relative h-56">
+        <img
+          src={photoUrl || DEFAULT_PHOTO_URL}
+          alt="profile"
+          className="h-full w-full object-cover"
+        />
 
-      <CardContent className="p-6 z-10">
-        {/* Avatar */}
-        <div className="flex items-center gap-4">
-          <img
-            src={user?.photoUrl}
-            alt={user?.firstName}
-            className="h-16 w-16 rounded-full object-cover"
-          />
-          <div>
-            <h2 className="text-lg font-semibold text-card-foreground">
-              {`${user?.firstName} ${user?.lastName || ""}`}
-            </h2>
-            <p className="text-sm text-muted-foreground">{user?.role}</p>
-          </div>
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
+
+        {/* Name & Role */}
+        <div className="absolute bottom-4 left-4">
+          <h2 className="text-lg font-semibold text-white">{`${firstName} ${lastName || ""}`}</h2>
+          <p className="text-sm text-gray-200">{role}</p>
         </div>
+      </div>
 
-        {/* About */}
-        <p className="mt-4 text-sm text-muted-foreground">{user?.aboutMe}</p>
-
-        {/* Skills */}
-        <div className="mt-4 flex flex-wrap gap-2">
-          {user?.skills?.map((skill, index) => (
-            <Badge
-              key={skill}
-              variant="secondary"
-              className={`rounded-full ${skillColors[index % skillColors?.length]}`}
+      {/* Content */}
+      <div className="p-4">
+        {/* Skills – Hero */}
+        <div className="flex flex-wrap gap-2">
+          {skills.map((skill, index) => (
+            <span
+              key={index}
+              className={`rounded-lg px-3 py-1 text-xs font-medium ${
+                skillColors[index % skillColors.length]
+              }`}
             >
               {skill}
-            </Badge>
+            </span>
           ))}
         </div>
 
-        {/* Location */}
-        <div className="mt-4 text-sm font-medium text-primary flex items-center gap-1.5">
-          <MapPin className="w-4 h-4" />
-          {user?.location}
+        {/* About */}
+        <p className="mt-3 text-sm leading-relaxed text-gray-600">{aboutMe}</p>
+
+        {/* Meta Info */}
+        <div className="mt-3 flex items-center gap-4 text-xs text-gray-500">
+          {age && <span>{age} yrs</span>}
+
+          {age && gender && (
+            <span className="h-1 w-1 rounded-full bg-gray-400" />
+          )}
+
+          {gender && <span>{gender}</span>}
+
+          {(age || gender) && location && (
+            <span className="h-1 w-1 rounded-full bg-gray-400" />
+          )}
+
+          {location && <span>{location}</span>}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
