@@ -30,16 +30,19 @@ const ProfileEditForm = () => {
     dateOfBirth: "",
     aboutMe: "",
     location: "",
-    photoUrl: ""
+    photoUrl: "",
   });
 
   const userData = useSelector((state) => state.user);
 
   const [skills, setSkills] = useState([]);
   const [skillInput, setSkillInput] = useState("");
+  const [firstTime, setFirstTime] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  console.log(userData);
 
   // Generic change handler
   const handleChange = (e) => {
@@ -101,7 +104,12 @@ const ProfileEditForm = () => {
             color: "#fff",
           },
         });
-        navigate("/profile");
+
+        if (res?.data?.isFirstTime) {
+          navigate("/");
+        } else {
+          navigate("/profile");
+        }
       }
     } catch (err) {
       let message = err?.response?.data?.message;
@@ -125,7 +133,7 @@ const ProfileEditForm = () => {
         dateOfBirth: userData.dateOfBirth || "",
         aboutMe: userData.aboutMe || "",
         location: userData.location || "",
-        photoUrl: userData.photoUrl || ""
+        photoUrl: userData.photoUrl || "",
       });
 
       setSkills(userData.skills || []);
@@ -153,8 +161,11 @@ const ProfileEditForm = () => {
             {/* Name */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-1">
-                <Label htmlFor="firstName">First Name</Label>
+                <Label htmlFor="firstName">
+                  First Name <span className="text-red-500">*</span>
+                </Label>
                 <Input
+                  required={true}
                   id="firstName"
                   name="firstName"
                   placeholder="John"
@@ -164,8 +175,11 @@ const ProfileEditForm = () => {
               </div>
 
               <div className="space-y-1">
-                <Label htmlFor="lastName">Last Name</Label>
+                <Label htmlFor="lastName">
+                  Last Name <span className="text-red-500">*</span>
+                </Label>
                 <Input
+                  required={true}
                   id="lastName"
                   name="lastName"
                   placeholder="Doe"
@@ -177,8 +191,11 @@ const ProfileEditForm = () => {
 
             {/* Role */}
             <div className="space-y-1">
-              <Label htmlFor="role">Role</Label>
+              <Label htmlFor="role">
+                Role <span className="text-red-500">*</span>
+              </Label>
               <Input
+                type="text"
                 id="role"
                 name="role"
                 required={true}
@@ -191,8 +208,11 @@ const ProfileEditForm = () => {
             {/* Age & Location */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-1">
-                <Label htmlFor="age">Age</Label>
+                <Label htmlFor="age">
+                  Age <span className="text-red-500">*</span>
+                </Label>
                 <Input
+                  required={true}
                   id="age"
                   name="age"
                   type="number"
@@ -217,7 +237,9 @@ const ProfileEditForm = () => {
             {/* Date of Birth & Gender */}
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="space-y-1">
-                <Label>Gender</Label>
+                <Label>
+                  Gender <span className="text-red-500">*</span>
+                </Label>
                 <Select
                   value={formData.gender}
                   onValueChange={(value) =>
@@ -247,8 +269,11 @@ const ProfileEditForm = () => {
             </div>
 
             <div className="space-y-1">
-              <Label htmlFor="photoUrl">About</Label>
-              <Textarea
+              <Label htmlFor="photoUrl">
+                Photo URL <span className="text-red-500">*</span>
+              </Label>
+              <Input
+                required={true}
                 id="photoUrl"
                 name="photoUrl"
                 type="text"
@@ -259,8 +284,11 @@ const ProfileEditForm = () => {
 
             {/* About Me */}
             <div className="space-y-1">
-              <Label htmlFor="aboutMe">About</Label>
+              <Label htmlFor="aboutMe">
+                About <span className="text-red-500">*</span>
+              </Label>
               <Textarea
+                required={true}
                 id="aboutMe"
                 name="aboutMe"
                 type="text"
@@ -271,7 +299,9 @@ const ProfileEditForm = () => {
 
             {/* Skills */}
             <div className="space-y-1">
-              <Label>Skills</Label>
+              <Label>
+                Skills <span className="text-red-500">*</span>
+              </Label>
 
               <div className="mt-2 flex flex-wrap gap-2">
                 {skills.map((skill) => (
@@ -305,6 +335,7 @@ const ProfileEditForm = () => {
                 type="button"
                 variant="outline"
                 onClick={() => navigate("/profile")}
+                disabled={!userData?.isProfileCompleted}
               >
                 Cancel
               </Button>
