@@ -5,9 +5,7 @@ import { useDispatch } from "react-redux";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { addUser } from "@/feature/userSlice";
 import { BASE_URL } from "@/utils/constants";
@@ -34,14 +32,13 @@ const Login = () => {
           withCredentials: true,
         }
       );
-      dispatch(addUser(res.data.user));
-      toast.success(res.data.message, {
-        description: `Welcome back ${res.data.user.firstName}!`,
+      dispatch(addUser(res?.data?.user));
+      toast.success(res?.data?.message, {
+        description: `Welcome back ${res?.data?.user?.firstName}!`,
       });
       navigate("/");
     } catch (error) {
-      const message = error.response.data.message || "Something went wrong";
-      // toast.error(message);
+      const message = error?.response?.data?.message || "Something went wrong";
       setErrMessage(message);
     }
   };

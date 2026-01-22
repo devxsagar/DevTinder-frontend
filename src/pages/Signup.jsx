@@ -44,9 +44,11 @@ const Signup = () => {
         withCredentials: true,
       });
 
-      if (res.data.success) {
-        dispatch(addUser(res.data.user));
-        toast.info();
+      if (res?.data?.success) {
+        dispatch(addUser(res?.data?.user));
+        toast.success(res?.data?.message, {
+          description: `Welcome ${res?.data?.user?.firstName}!`,
+        });
         navigate("/profile/edit");
       }
     } catch (err) {
@@ -69,7 +71,7 @@ const Signup = () => {
                 id="firstName"
                 name="firstName"
                 type="text"
-                placeholder="Enter your email"
+                placeholder="Enter your first name"
                 value={signUpData.firstName}
                 onChange={handleChange}
               />
