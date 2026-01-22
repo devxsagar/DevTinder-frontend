@@ -6,7 +6,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "@/utils/constants";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { addUser } from "@/feature/userSlice";
@@ -40,7 +39,7 @@ const Signup = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(BASE_URL + "/signup", signUpData, {
+      const res = await axios.post(import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/signup", signUpData, {
         withCredentials: true,
       });
 

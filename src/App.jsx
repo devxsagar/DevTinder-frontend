@@ -6,7 +6,6 @@ import axios from "axios";
 import Navbar from "./components/Navigation/Navbar";
 import Footer from "./components/Navigation/Footer";
 import { toast, Toaster } from "sonner";
-import { BASE_URL } from "./utils/constants";
 import { addUser, removeUser } from "./feature/userSlice";
 
 const App = () => {
@@ -24,7 +23,7 @@ const App = () => {
         return;
       }
 
-      const res = await axios.get(BASE_URL + "/profile/view", {
+      const res = await axios.get(import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/profile/view", {
         withCredentials: true,
       });
 

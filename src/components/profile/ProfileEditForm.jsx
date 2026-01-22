@@ -16,7 +16,6 @@ import { Badge } from "@/components/ui/badge";
 import UserCard from "../feed/UserCard";
 import { toast } from "sonner";
 import axios from "axios";
-import { BASE_URL } from "@/utils/constants";
 import { addUser } from "@/feature/userSlice";
 import { Textarea } from "../ui/textarea";
 
@@ -92,7 +91,7 @@ const ProfileEditForm = () => {
 
     // call update profile API
     try {
-      const res = await axios.patch(BASE_URL + "/profile/edit", payload, {
+      const res = await axios.patch(import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/profile/edit", payload, {
         withCredentials: true,
       });
 

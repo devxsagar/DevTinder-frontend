@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { addUser } from "@/feature/userSlice";
-import { BASE_URL } from "@/utils/constants";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -23,7 +22,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        BASE_URL + "/login",
+        import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/login",
         {
           email,
           password,

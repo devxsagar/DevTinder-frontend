@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
-import { BASE_URL } from "@/utils/constants";
 import { addConnections } from "@/feature/connectionsSlice";
 import { addRequests, removeRequest } from "@/feature/requestsSlice";
 import RequestCard from "@/components/RequestCard";
@@ -15,7 +14,7 @@ const Requests = () => {
   const handleReviewRequests = async (status, _id) => {
     try {
       const res = await axios.post(
-        BASE_URL + `/request/review/${status}/${_id}`,
+        import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + `/request/review/${status}/${_id}`,
         {},
         { withCredentials: true },
       );
@@ -30,7 +29,7 @@ const Requests = () => {
 
   const fetchRequests = async () => {
     try {
-      const res = await axios.get(BASE_URL + "/user/requests/received", {
+      const res = await axios.get(import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
 

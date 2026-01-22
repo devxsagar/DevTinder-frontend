@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 
-import { BASE_URL, DEFAULT_PHOTO_URL } from "@/utils/constants";
+import { DEFAULT_PHOTO_URL } from "@/utils/constants";
 import { removeUserFromFeed } from "@/feature/feedSlice";
 
 const UserCard = ({ user }) => {
@@ -32,7 +32,7 @@ const UserCard = ({ user }) => {
   const handleRequest = async (status, id) => {
     try {
       const res = await axios.post(
-        BASE_URL + `/request/send/${status}/${id}`,
+        import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + `/request/send/${status}/${id}`,
         {},
         { withCredentials: true },
       );

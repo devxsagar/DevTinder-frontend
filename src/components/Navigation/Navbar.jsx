@@ -16,8 +16,9 @@ import {
   IconUserFilled,
   IconUserPlus,
 } from "@tabler/icons-react";
-import { BASE_URL, DEFAULT_PHOTO_URL } from "@/utils/constants";
+import {  DEFAULT_PHOTO_URL } from "@/utils/constants";
 import { removeUser } from "@/feature/userSlice";
+import logo from "../../assets/logo.webp";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
@@ -28,7 +29,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        BASE_URL + "/logout",
+        import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/logout",
         {},
         {
           withCredentials: true,
@@ -44,10 +45,10 @@ const Navbar = () => {
 
   return (
     <nav className="w-full text-foreground">
-      <div className="mx-auto max-w-3xl px-6 py-3 bg-background flex items-center justify-between border border-border mt-4 rounded-4xl">
+      <div className="mx-auto max-w-3xl px-6 py-3 bg-background flex items-center  justify-between border border-border mt-4 rounded-4xl">
         {/* Logo */}
         <Link to="/" className="text-lg md:text-xl font-bold cursor-pointer">
-          DevTinder
+          <img src={logo} alt="logo" className="w-10 -mt-2 md:w-14" />
         </Link>
 
         {/* User Dropdown */}
