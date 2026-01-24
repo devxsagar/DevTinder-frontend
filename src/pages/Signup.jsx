@@ -45,8 +45,8 @@ const Signup = () => {
 
       if (res?.data?.success) {
         dispatch(addUser(res?.data?.user));
-        toast.success(res?.data?.message, {
-          description: `Welcome ${res?.data?.user?.firstName}!`,
+        toast.success("Account created successfully 🎉", {
+          description: `Welcome ${res?.data?.user?.firstName}!You’re now logged in`,
         });
         navigate("/profile/edit");
       }

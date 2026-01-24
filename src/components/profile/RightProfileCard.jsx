@@ -80,14 +80,6 @@ const RightProfileCard = ({ user }) => {
             )}
           </div>
         </div>
-
-        {/* About Me Full Width */}
-        <div className="mt-6">
-          <p className="text-xs uppercase text-muted-foreground">About Me</p>
-          <p className="mt-2 text-sm leading-relaxed text-primary/80">
-            {user.aboutMe || "No bio"}
-          </p>
-        </div>
       </div>
     )
   );

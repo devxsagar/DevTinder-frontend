@@ -105,7 +105,7 @@ const ProfileEditForm = () => {
         });
 
         if (res?.data?.isFirstTime) {
-          navigate("/");
+          navigate("/feed");
         } else {
           navigate("/profile");
         }
@@ -354,7 +354,7 @@ const ProfileEditForm = () => {
             </p>
           </div>
           <div className="w-full flex items-center justify-center">
-            <UserCard user={{ ...formData, skills }} />
+            <UserCard user={{ ...formData, skills }} editForm={true} />
           </div>
         </div>
       </div>

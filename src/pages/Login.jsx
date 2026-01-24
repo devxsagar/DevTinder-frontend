@@ -31,11 +31,14 @@ const Login = () => {
           withCredentials: true,
         }
       );
+
       dispatch(addUser(res?.data?.user));
+
       toast.success(res?.data?.message, {
         description: `Welcome back ${res?.data?.user?.firstName}!`,
       });
-      navigate("/");
+
+      navigate("/feed");
     } catch (error) {
       const message = error?.response?.data?.message || "Something went wrong";
       setErrMessage(message);

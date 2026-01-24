@@ -4,8 +4,9 @@ import axios from "axios";
 
 import { DEFAULT_PHOTO_URL } from "@/utils/constants";
 import { removeUserFromFeed } from "@/feature/feedSlice";
+import { Button } from "../ui/button";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, editForm = false }) => {
   const dispatch = useDispatch();
 
   const skillColors = [
@@ -32,7 +33,8 @@ const UserCard = ({ user }) => {
   const handleRequest = async (status, id) => {
     try {
       const res = await axios.post(
-        import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + `/request/send/${status}/${id}`,
+        import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL +
+          `/request/send/${status}/${id}`,
         {},
         { withCredentials: true },
       );
@@ -52,7 +54,7 @@ const UserCard = ({ user }) => {
         <img
           src={photoUrl || DEFAULT_PHOTO_URL}
           alt="profile"
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover object-center"
         />
 
         {/* Overlay */}
@@ -103,18 +105,21 @@ const UserCard = ({ user }) => {
 
         {/* Actions */}
         <div className="mt-4 flex gap-3">
-          <button
-            className="flex-1 rounded-lg border border-gray-300 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          <Button
+            variant="outline"
+            className="flex-1  py-2 text-sm font-medium"
             onClick={() => handleRequest("ignored", _id)}
+            disabled={editForm}
           >
             Ignore
-          </button>
-          <button
-            className="flex-1 rounded-lg bg-gray-900 py-2 text-sm font-medium text-white hover:bg-gray-800"
+          </Button>
+          <Button
+            className="flex-1 rounded-lg py-2 text-sm font-medium"
             onClick={() => handleRequest("interested", _id)}
+            disabled={editForm} 
           >
             Interested
-          </button>
+          </Button>
         </div>
       </div>
     </div>

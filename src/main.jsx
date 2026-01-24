@@ -13,14 +13,16 @@ import Profile from "./pages/Profile";
 import ProfileEditForm from "./components/profile/ProfileEditForm";
 import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <NotFound />,
     children: [
       {
-        path: "/",
+        path: "/feed",
         element: <Feed />,
       },
       {

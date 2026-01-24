@@ -16,7 +16,7 @@ const footerLink = [
 
 const Footer = () => {
   return (
-    <footer className="py-3">
+    <footer className="py-3 mt-10">
       <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
         <p className="text-sm">
           ©{new Date().getFullYear()} DevTinder. All rights reserved.
