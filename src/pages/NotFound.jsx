@@ -25,7 +25,7 @@ function NotFound() {
 
           {/* Home Button */}
           <Button
-            onClick={() => navigate("/feed")}
+            onClick={() => navigate("/")}
             className="transition-all duration-200 hover:scale-105 active:scale-95"
           >
             <svg

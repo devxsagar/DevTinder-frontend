@@ -105,7 +105,7 @@ const ProfileEditForm = () => {
         });
 
         if (res?.data?.isFirstTime) {
-          navigate("/feed");
+          navigate("/");
         } else {
           navigate("/profile");
         }

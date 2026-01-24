@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       {
-        path: "/feed",
+        path: "/",
         element: <Feed />,
       },
       {
