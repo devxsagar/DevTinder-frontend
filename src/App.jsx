@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <div className="max-xl:px-4 z-100 ">
-      <Navbar />
+      {location.pathname !== "/login" && location.pathname !== "/signup" && <Navbar />}
       <Outlet />
       <Footer />
       <Toaster position="top-right" />
