@@ -28,9 +28,6 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  const isAuthPage =
-    location.pathname === "/login" || location.pathname === "/signup";
-
   const isHomePage = location.pathname === "/";
 
   const handleLogout = async () => {
@@ -44,7 +41,7 @@ const Navbar = () => {
       );
 
       dispatch(removeUser());
-      navigate("/login");
+      navigate("/");
     } catch (err) {
       console.log(err);
     }
@@ -63,8 +60,9 @@ const Navbar = () => {
 
         {isHomePage && (
           <nav className="flex items-center gap-4">
-            <Button variant="ghost" onClick={() => navigate("/login")} >Login</Button>
-            <Button variant="default" onClick={() => navigate("/signup")}>Get Started</Button>
+            <Button variant="default" onClick={() => navigate("/signup")}>
+              Get Started
+            </Button>
           </nav>
         )}
 

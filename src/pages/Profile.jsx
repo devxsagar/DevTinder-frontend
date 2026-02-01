@@ -40,7 +40,7 @@ const Profile = () => {
           {/* Edit Button */}
           <button
             className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-primary transition hover:bg-accent"
-            onClick={() => navigate("/profile/edit")}
+            onClick={() => navigate("/app/profile/edit")}
           >
             Edit Profile
           </button>
