@@ -4,10 +4,27 @@ import { useNavigate } from "react-router-dom";
 import LeftProfileCard from "@/components/profile/LeftProfileCard";
 import RightProfileCard from "@/components/profile/RightProfileCard";
 import { useSelector } from "react-redux";
+import { Button } from "@/components/ui/button";
 
 const Profile = () => {
   const user = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  if (!user) {
+    return (
+      <div className="flex flex-col gap-4 items-center justify-center min-h-screen">
+        {" "}
+        <p>Please login in first to view your profile </p>{" "}
+        <Button
+          className=" text-sm font-medium"
+          onClick={() => navigate("/login")}
+        >
+          Login
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-secondary py-10 px-4">
       <div className="mx-auto max-w-7xl">
@@ -21,7 +38,10 @@ const Profile = () => {
           </div>
 
           {/* Edit Button */}
-          <button className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-primary transition hover:bg-accent" onClick={() => navigate("/profile/edit")}>
+          <button
+            className="rounded-lg border border-border bg-background px-4 py-2 text-sm font-medium text-primary transition hover:bg-accent"
+            onClick={() => navigate("/profile/edit")}
+          >
             Edit Profile
           </button>
         </div>

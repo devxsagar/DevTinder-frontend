@@ -41,8 +41,6 @@ const ProfileEditForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(userData);
-
   // Generic change handler
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -105,9 +103,9 @@ const ProfileEditForm = () => {
         });
 
         if (res?.data?.isFirstTime) {
-          navigate("/");
+          navigate("/app");
         } else {
-          navigate("/profile");
+          navigate("/app/profile");
         }
       }
     } catch (err) {

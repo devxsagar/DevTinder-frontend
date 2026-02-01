@@ -66,10 +66,10 @@ const RightProfileCard = ({ user }) => {
         <div className="mt-6">
           <p className="text-xs uppercase text-muted-foreground">Skills</p>
           <div className="mt-1 flex flex-wrap  gap-2">
-            {user.skills.length === 0 ? (
+            {user.skills?.length === 0 ? (
               <p className="text-sm text-primary/80">Add your top skills</p>
             ) : (
-              user.skills.map((skill) => (
+              user.skills?.map((skill) => (
                 <span
                   key={skill}
                   className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-700"

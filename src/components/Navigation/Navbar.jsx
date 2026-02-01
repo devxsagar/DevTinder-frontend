@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import {
@@ -16,15 +16,22 @@ import {
   IconUserFilled,
   IconUserPlus,
 } from "@tabler/icons-react";
-import {  DEFAULT_PHOTO_URL } from "@/utils/constants";
+import { DEFAULT_PHOTO_URL } from "@/utils/constants";
 import { removeUser } from "@/feature/userSlice";
 import logo from "../../assets/logo.webp";
+import { Button } from "../ui/button";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
+
+  const isAuthPage =
+    location.pathname === "/login" || location.pathname === "/signup";
+
+  const isHomePage = location.pathname === "/";
 
   const handleLogout = async () => {
     try {
@@ -47,13 +54,23 @@ const Navbar = () => {
     <nav className="w-full text-foreground">
       <div className="mx-auto max-w-3xl px-6 py-3 bg-background flex items-center  justify-between border border-border mt-4 rounded-4xl">
         {/* Logo */}
-        <Link to="/" className="text-lg md:text-xl font-bold cursor-pointer">
+        <Link
+          to={isHomePage ? "/" : "/app"}
+          className="text-lg md:text-xl font-bold cursor-pointer"
+        >
           <img src={logo} alt="logo" className="w-10 -mt-2 md:w-14" />
         </Link>
 
+        {isHomePage && (
+          <nav className="flex items-center gap-4">
+            <Button variant="ghost" onClick={() => navigate("/login")} >Login</Button>
+            <Button variant="default" onClick={() => navigate("/signup")}>Get Started</Button>
+          </nav>
+        )}
+
         {/* User Dropdown */}
         {user && (
-          <DropdownMenu >
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Avatar className="cursor-pointer">
                 <AvatarImage
@@ -61,14 +78,14 @@ const Navbar = () => {
                   src={user.photoUrl || DEFAULT_PHOTO_URL}
                   alt="user"
                 />
-                <AvatarFallback>{user.firstName.split("")[0]}</AvatarFallback>
+                <AvatarFallback>{user.firstName?.split("")[0]}</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
 
             <DropdownMenuContent align="end" className="w-20 bg-popover">
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => navigate("/profile")}
+                onClick={() => navigate("/app/profile")}
               >
                 <IconUser />
                 Profile
@@ -76,7 +93,7 @@ const Navbar = () => {
 
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => navigate("/connections")}
+                onClick={() => navigate("/app/connections")}
               >
                 <IconUserCheck />
                 Connections
@@ -84,7 +101,7 @@ const Navbar = () => {
 
               <DropdownMenuItem
                 className="cursor-pointer"
-                onClick={() => navigate("/requests")}
+                onClick={() => navigate("/app/requests")}
               >
                 <IconUserPlus />
                 Requests

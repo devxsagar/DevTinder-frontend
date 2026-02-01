@@ -28,6 +28,8 @@ const Feed = () => {
     fetchFeed();
   }, []);
 
+  if(!feedUsers) return
+
   return (
     <div className="w-full min-h-screen pt-30">
       <div className="w-full  max-w-7xl mx-auto flex items-center justify-center">

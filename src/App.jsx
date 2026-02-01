@@ -7,6 +7,8 @@ import Navbar from "./components/Navigation/Navbar";
 import Footer from "./components/Navigation/Footer";
 import { toast, Toaster } from "sonner";
 import { addUser, removeUser } from "./feature/userSlice";
+import { Button } from "./components/ui/button";
+import Home from "./components/Home";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,9 +25,12 @@ const App = () => {
         return;
       }
 
-      const res = await axios.get(import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/profile/view", {
-        withCredentials: true,
-      });
+      const res = await axios.get(
+        import.meta.env.VITE_REACT_APP_BACKEND_BASE_URL + "/profile/view",
+        {
+          withCredentials: true,
+        },
+      );
 
       if (res.data.success) {
         dispatch(addUser(res.data.user));
@@ -44,7 +49,7 @@ const App = () => {
 
   return (
     <div className="max-xl:px-4 z-100 ">
-      {location.pathname !== "/login" && location.pathname !== "/signup" && <Navbar />}
+      <Navbar />
       <Outlet />
       <Footer />
       <Toaster position="top-right" />

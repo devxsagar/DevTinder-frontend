@@ -38,7 +38,7 @@ const Login = () => {
         description: `Welcome back ${res?.data?.user?.firstName}!`,
       });
 
-      navigate("/");
+      navigate("/app");
     } catch (error) {
       const message = error?.response?.data?.message || "Something went wrong";
       setErrMessage(message);

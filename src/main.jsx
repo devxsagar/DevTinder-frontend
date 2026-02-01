@@ -14,24 +14,32 @@ import ProfileEditForm from "./components/profile/ProfileEditForm";
 import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
 import NotFound from "./pages/NotFound";
+import Home from "./components/Home";
 
 const router = createBrowserRouter([
+  // 🌐 Public routes (NO App layout)
   {
     path: "/",
-    element: <App />,
+    element: <Home />, // your DevTinder landing page
     errorElement: <NotFound />,
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "signup",
+    element: <Signup />,
+  },
+
+  // 🔒 App routes (WITH App layout)
+  {
+    path: "app",
+    element: <App />,
     children: [
       {
-        path: "/",
+        index: true,
         element: <Feed />,
-      },
-      {
-        path: "signup",
-        element: <Signup />,
-      },
-      {
-        path: "login",
-        element: <Login />,
       },
       {
         path: "profile",
@@ -48,7 +56,7 @@ const router = createBrowserRouter([
       {
         path: "requests",
         element: <Requests />,
-      }
+      },
     ],
   },
 ]);
